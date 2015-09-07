@@ -8,10 +8,7 @@
 //#endif
 
 
-//#pragma once
-
-#ifndef RECTANGLE_H
-#define RECTANGLE_H
+#pragma once
 
 class Rectangle
 {
@@ -23,10 +20,37 @@ public:
 	void setHeight(double height);
 	void setWidth(double width);
 
-private:
+protected:
 	double rec_height;
 	double rec_width;
 
+	//protected can be assessed by child classes.
 };
 
-#endif
+double Rectangle::getArea()
+{
+	return rec_height*rec_width;
+
+}
+
+double Rectangle::getPerimeter()
+{
+	return 2 * (rec_height + rec_width);
+}
+
+void Rectangle::setWidth(double width)
+{
+	rec_width = width;
+
+}
+
+void Rectangle::setHeight(double height)
+{
+	rec_height = height;
+}
+
+double area(double width, double height)
+{
+	return width*height;
+
+}

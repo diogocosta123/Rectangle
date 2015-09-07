@@ -4,44 +4,47 @@
 #include "stdafx.h"
 #include <iostream>
 #include "Rectangle.h"
+#include <string>
+
+using std::string; //standard implementation
 
 
-
-double Rectangle::getArea()
+void swap(int& a, int&b)
 {
-	return rec_height*rec_width;
+	int aux = {};
+	aux = a;
+	a = b;
+	b = aux;
 
 }
 
-double Rectangle::getPerimeter()
+
+// Inheritance
+
+class namedRectangle : Rectangle
 {
-	return 2 * (rec_height + rec_width);
+public:
+	string getName();
+	void setName(string name);
+
+private:
+	string rec_name;
+
+};
+
+string namedRectangle::getName() {
+	return rec_name;
 }
 
-void Rectangle::setWidth(double width)
-{
-	rec_width = width;
-
+void namedRectangle::setName(string name) {
+	rec_name = name;
 }
 
-void Rectangle::setHeight(double height)
-{
-	rec_height = height;
-}
-
-//protected can be assessed by child classes.
-
-
-double area(double width, double height)
-{
-	return width*height;
-
-}
 
 int main()
 {
 
-
+	// Class
 	Rectangle rect1{};
 	double x_width{ 10 }, y_height{ 25 }; // assign - unitalicized variable // copy - previously initialized variable
 	double rectangle_area{}, rectangle_perimeter{};
@@ -49,10 +52,25 @@ int main()
 		rect1.setWidth(10.0);
 	rectangle_area = rect1.getArea();
 	rectangle_perimeter = rect1.getPerimeter();
-
 	std::cout << "Area: " << +rectangle_area << "\nPerimeter: " << +rectangle_perimeter << "\n" << std::endl;
+
+	// Inheritance
+	namedRectangle rect2{};
+	string name{};
+	rect2.setName("FRED");
+	name = rect2.getName();
+	std::cout << name << std::endl;
+
+
+
+	// Reference - just declare the variables with & sign on the function header. 
 	
-	//Hello!
+	int a{0}, b{1};
+	swap(a, b);
+	if (a == 1 && b == 0)
+		std::cout << "swap succeeded: " << +a << " " << +b << std::endl;
+	else
+		std::cout << "swap failed";
 	return 0;
 }
 
