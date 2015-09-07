@@ -9,6 +9,8 @@
 
 
 #pragma once
+#include <string>
+using std::string;
 
 class Rectangle
 {
@@ -53,4 +55,25 @@ double area(double width, double height)
 {
 	return width*height;
 
+}
+
+// Inheritance
+
+class namedRectangle : Rectangle
+{
+public:
+	string getName();
+	void setName(string name);
+
+private:
+	string rec_name;
+
+};
+
+string namedRectangle::getName() {
+	return rec_name;
+}
+
+void namedRectangle::setName(string name) {
+	rec_name = name;
 }

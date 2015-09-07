@@ -4,9 +4,9 @@
 #include "stdafx.h"
 #include <iostream>
 #include "Rectangle.h"
-#include <string>
+#include <string> //string.h c header.  string c++ header!
 
-using std::string; //standard implementation
+using std::string; //standard implementation. should use std::string, so people no it's the standard library.
 
 
 void swap(int& a, int&b)
@@ -16,28 +16,6 @@ void swap(int& a, int&b)
 	a = b;
 	b = aux;
 
-}
-
-
-// Inheritance
-
-class namedRectangle : Rectangle
-{
-public:
-	string getName();
-	void setName(string name);
-
-private:
-	string rec_name;
-
-};
-
-string namedRectangle::getName() {
-	return rec_name;
-}
-
-void namedRectangle::setName(string name) {
-	rec_name = name;
 }
 
 
@@ -56,13 +34,11 @@ int main()
 
 	// Inheritance
 	namedRectangle rect2{};
-	string name{};
-	rect2.setName("FRED");
+	string name = "";
+	rect2.setName("Cool rectangle");
 	name = rect2.getName();
-	std::cout << name << std::endl;
-
-
-
+	std::cout <<"Rectangle name: "<< name <<"\n"<< std::endl;
+	
 	// Reference - just declare the variables with & sign on the function header. 
 	
 	int a{0}, b{1};
@@ -74,4 +50,6 @@ int main()
 	return 0;
 }
 
+
+// things to see: more on inheritance, polymorphism, exceptions, RAII and smart pointers. data structures(vectors), templates, lambdas.
 
