@@ -3,13 +3,15 @@
 
 #include "stdafx.h"
 #include <iostream>
+#include <memory> // for smart pointers
+#include <fstream> // read and write
 #include "Object.h"
 #include <string> //string.h c header.  string c++ header!
 
 using std::string; //standard implementation. should use std::string, so people no it's the standard library.
 
 
-void swap(int& a, int&b)
+void swap(int& a, int& b)
 {
 	int aux = {};
 	aux = a;
@@ -19,7 +21,10 @@ void swap(int& a, int&b)
 }
 
 
-// Template: Can be function template or class template.
+// Template: Can be function template or class template. 
+// More info and class templates: http://www.tutorialspoint.com/cplusplus/cpp_templates.htm
+//			e.g: Vector is a template.
+// Function template:
 
 template <typename T>  // Should use typename, class is for backwards compatibility.
 	T Add(T t1, T t2)
@@ -27,7 +32,16 @@ template <typename T>  // Should use typename, class is for backwards compatibil
 		return t1 + t2;
 	} 
 
+	//Smart pointers
 
+	string smartTest(double& a, double& b)
+	{
+		
+		std::shared_ptr<string> str(new string());
+		*str = "OLA:" + a + b;
+		return *str;
+	}
+	
 
 int main()
 {
@@ -54,9 +68,9 @@ int main()
 	int a{0}, b{1};
 	swap(a, b);
 	if (a == 1 && b == 0)
-		std::cout << "swap succeeded: " << +a << " " << +b << std::endl;
+		std::cout << "Swap succeeded: " << +a << " " << +b << std::endl;
 	else
-		std::cout << "swap failed";
+		std::cout << "Swap failed.";
 	
 	// Polymorphism: C++ polymorphism means that a call  to a member function 
 	//               will cause a different function to be executed depending on the type of object that invokes the function. 
@@ -80,12 +94,44 @@ int main()
 	std::cout << "Perimeter: " << perimeter << "\n" << std::endl;
 	
 
-	//template
-	std::cout << "Template test: "<< Add(1, 2) << std::endl;
+	//Template - Read above.
+	std::cout << "Template test: "<< Add(1, 2) <<"\n"<< std::endl;
+
+	// Exceptions: When you want to access something (e.g: file, database) 
+	//             that's not available (or don't have permission) anymore. 
+	//			   More info: http://stackoverflow.com/questions/8480640/how-to-throw-a-c-exception
+
+	try
+	{
+
+		//RAII 
+		std::fstream file;
+		file.open("C:/users/diogo/desktop/");
+		if (file.is_open())
+			std::cout << "File opened successfully.\n" << std::endl;
+		else
+			throw std::invalid_argument("Failed to open file.\n\n");
+
+		// file.close(); - Do NOT close files/etc EVER! RAII takes care of it for us!; 
+		//                 RAII exception-safe resource management. It prevents exceptions to be thrown and guarantees everything is destroyed.
+	}
+	catch (const std::exception& e)
+	{
+		std::cerr << "Exception caught: " << e.what();
+		return -1;
+	}
+
+	// Smart pointers.
+	string smart = "";
+	smart = smartTest(x_width, y_height);
 
 	return 0;
+
+	
+
+
 }
 
 
-// things to see: exceptions, RAII and smart pointers. data structures(vectors), templates, lambdas.
+// things to see: casting smart pointers. data structures(vectors), lambdas (must be last), jump inside classes, save settings.
 
