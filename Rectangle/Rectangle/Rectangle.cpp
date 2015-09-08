@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include <iostream>
-#include "Rectangle.h"
+#include "Object.h"
 #include <string> //string.h c header.  string c++ header!
 
 using std::string; //standard implementation. should use std::string, so people no it's the standard library.
@@ -17,6 +17,16 @@ void swap(int& a, int&b)
 	b = aux;
 
 }
+
+
+// Template: Can be function template or class template.
+
+template <typename T>  // Should use typename, class is for backwards compatibility.
+	T Add(T t1, T t2)
+	{
+		return t1 + t2;
+	} 
+
 
 
 int main()
@@ -47,9 +57,35 @@ int main()
 		std::cout << "swap succeeded: " << +a << " " << +b << std::endl;
 	else
 		std::cout << "swap failed";
+	
+	// Polymorphism: C++ polymorphism means that a call  to a member function 
+	//               will cause a different function to be executed depending on the type of object that invokes the function. 
+	//               You have different classes with a function of the same name, and even the same parameters, but with different implementations.
+	//				
+	//				 Create virtual function in base class:
+
+						// virtual int area()
+						// {
+						//	return 0;                              -> USE THIS. DERIVED CLASSES CAN OVERIDE IMPLEMENTATION
+						// }
+	//				Or pure virtual function - MUST redefine it in the child classes (or derived classes will become abstract). 
+
+						// virtual double getPerimeter() = 0;      -> MAKES CLASSES ABSTRACT
+
+
+	double perimeter{};
+	rect2.setHeight(10.0);
+	rect2.setWidth(15.0);
+	perimeter = rect2.getPerimeter();
+	std::cout << "Perimeter: " << perimeter << "\n" << std::endl;
+	
+
+	//template
+	std::cout << "Template test: "<< Add(1, 2) << std::endl;
+
 	return 0;
 }
 
 
-// things to see: more on inheritance, polymorphism, exceptions, RAII and smart pointers. data structures(vectors), templates, lambdas.
+// things to see: exceptions, RAII and smart pointers. data structures(vectors), templates, lambdas.
 

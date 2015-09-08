@@ -12,21 +12,37 @@
 #include <string>
 using std::string;
 
-class Rectangle
+
+class Object
 {
 public:
 
+	// pure virtual function
+	//virtual double getPerimeter() = 0;
+	//virtual function
+	virtual double getPerimete() {
+		return 0;
+	}
+};
 
+
+
+
+class Rectangle : Object
+{
+public:
+	
 	double getArea();
 	double getPerimeter();
 	void setHeight(double height);
 	void setWidth(double width);
 
 protected:
+
 	double rec_height;
 	double rec_width;
 
-	//protected can be assessed by child classes.
+	//protected can be assessed by child classes, but NOT outside classes!
 };
 
 double Rectangle::getArea()
@@ -40,6 +56,7 @@ double Rectangle::getPerimeter()
 	return 2 * (rec_height + rec_width);
 }
 
+
 void Rectangle::setWidth(double width)
 {
 	rec_width = width;
@@ -51,15 +68,14 @@ void Rectangle::setHeight(double height)
 	rec_height = height;
 }
 
-double area(double width, double height)
-{
-	return width*height;
 
-}
 
 // Inheritance
 
-class namedRectangle : Rectangle
+class namedRectangle : public Rectangle // if the access-specifier is not specified it will be private by default. 
+										// Should be PUBLIC if it is to be accessed by outside (most of the cases), 
+										// otherwise it will only be accessible by child classes.
+										// See: http://www.tutorialspoint.com/cplusplus/cpp_inheritance.htm
 {
 public:
 	string getName();
@@ -71,6 +87,7 @@ private:
 };
 
 string namedRectangle::getName() {
+
 	return rec_name;
 }
 
