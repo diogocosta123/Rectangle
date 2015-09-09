@@ -20,7 +20,7 @@ public:
 	// pure virtual function
 	//virtual double getPerimeter() = 0;
 	//virtual function
-	virtual double getPerimete() {
+	virtual double getPerimeter() {
 		return 0;
 	}
 };

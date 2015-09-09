@@ -7,6 +7,7 @@
 #include <fstream> // read and write
 #include "Object.h"
 #include <string> //string.h c header.  string c++ header!
+#include <vector>
 
 using std::string; //standard implementation. should use std::string, so people no it's the standard library.
 
@@ -32,15 +33,26 @@ template <typename T>  // Should use typename, class is for backwards compatibil
 		return t1 + t2;
 	} 
 
-	//Smart pointers
+	//Smart pointers - include <memory header>
 
-	string smartTest(double& a, double& b)
+	Rectangle smartTest(double width, double height)
 	{
+		std::unique_ptr<Rectangle> rect3(new Rectangle()); // Declare
 		
-		std::shared_ptr<string> str(new string());
-		*str = "OLA:" + a + b;
-		return *str;
-	}
+		//(*rect3).setWidth(width);           // Use
+		//(*rect3).setHeight(height);
+											// Equivalent. Gets the member set...
+											// rect3 points too.				
+		rect3->setWidth(width);
+		rect3->setHeight(height);
+		
+		return *rect3;
+		//unique_ptr: only one object needs to access the pointer.
+		//shared_ptr: several want to use the pointer (cleaned after last copy gets out of scope)
+		//weak_ptr:
+
+	}   //rect3 is deleted automatically here. 
+		// NEVER use new or delete. Once there are no remaining references everything will be deleted for us.
 	
 
 int main()
@@ -48,7 +60,7 @@ int main()
 
 	// Class
 	Rectangle rect1{};
-	double x_width{ 10 }, y_height{ 25 }; // assign - unitalicized variable // copy - previously initialized variable
+	double x_width{ 10.0 }, y_height{ 25.0 }; // assign - unitalicized variable // copy - previously initialized variable
 	double rectangle_area{}, rectangle_perimeter{};
 	rect1.setHeight(4.0),
 		rect1.setWidth(10.0);
@@ -97,6 +109,33 @@ int main()
 	//Template - Read above.
 	std::cout << "Template test: "<< Add(1, 2) <<"\n"<< std::endl;
 
+
+	// Smart pointers (Part of RAII - More bellow).
+
+	Rectangle rectPointer{};
+	double pointerArea{};
+	rectPointer = smartTest(x_width, y_height);
+	pointerArea = rectPointer.getArea();
+	std::cout << "Pointer test: " << pointerArea << "\n" <<std::endl;
+
+
+	// Casting:
+
+	//(int)x_width; // Classic C cast - More powerful, but more unsafe - Should probably use this. 
+
+    // Type conversion
+	//static_cast<int>(x_width); // dynamic_cast - Check type conversion later.
+
+
+	//Data structures: Vector and more.
+
+	//!!!numeric and algorithm libraries!!!.
+
+	std::vector<Rectangle> rectVector;
+	auto it = rectVector.begin();
+	rectVector.insert(it,rect1);
+	rectVector.insert(it, rect2);
+
 	// Exceptions: When you want to access something (e.g: file, database) 
 	//             that's not available (or don't have permission) anymore. 
 	//			   More info: http://stackoverflow.com/questions/8480640/how-to-throw-a-c-exception
@@ -113,7 +152,7 @@ int main()
 			throw std::invalid_argument("Failed to open file.\n\n");
 
 		// file.close(); - Do NOT close files/etc EVER! RAII takes care of it for us!; 
-		//                 RAII exception-safe resource management. It prevents exceptions to be thrown and guarantees everything is destroyed.
+		//                 RAII exception-safe resource management. It prevents exceptions to be thrown and guarantees everything is released.
 	}
 	catch (const std::exception& e)
 	{
@@ -121,17 +160,10 @@ int main()
 		return -1;
 	}
 
-	// Smart pointers.
-	string smart = "";
-	smart = smartTest(x_width, y_height);
-
 	return 0;
-
-	
-
 
 }
 
 
-// things to see: casting smart pointers. data structures(vectors), lambdas (must be last), jump inside classes, save settings.
+// things to see: lambdas (must be last), jump inside classes, save settings, run from command line.
 
