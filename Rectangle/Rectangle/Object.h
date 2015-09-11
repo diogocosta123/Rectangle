@@ -17,8 +17,8 @@ class Object
 {
 public:
 
-	// pure virtual function
-	//virtual double getPerimeter() = 0;
+	//pure virtual function
+		//virtual double getPerimeter() = 0;
 	//virtual function
 	virtual double getPerimeter() {
 		return 0;

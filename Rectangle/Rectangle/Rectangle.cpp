@@ -82,7 +82,7 @@ template <typename T>  // Should use typename, class is for backwards compatibil
 
 		int a{ 0 }, b{ 1 };
 		swap(a, b);
-		if (a == 1 && b == 0)
+		if (a == 1 && b == 0)						// Passed variables also change
 			std::cout << "Swap succeeded: " << +a << " " << +b << std::endl;
 		else
 			std::cout << "Swap failed.";
@@ -142,7 +142,7 @@ template <typename T>  // Should use typename, class is for backwards compatibil
 
 		rectVector[0];				// e.g: Access element 0 of vector.
 
-		rectVector.size();			// returns vector size-
+		rectVector.size();			// returns vector size.
 
 		//Loop through vectors:
 
@@ -152,7 +152,7 @@ template <typename T>  // Should use typename, class is for backwards compatibil
 		std::cout << "Vector elements: " << std::endl;
 
 		for (const auto& elem : doubleVector) // similar to matlab:
-		{									  // starting in current elem until the end of doubleVector 
+		{									  // starting in current elem until the end of doubleVector (elem == current element. There's no counter.) 
 			total_sum += elem;
 			std::cout << elem << std::endl;
 		}
@@ -168,7 +168,7 @@ template <typename T>  // Should use typename, class is for backwards compatibil
 		std::sort(begin(doubleVector), end(doubleVector));  // Sorts vector
 
 		auto it = std::find(begin(seriesVector), end(seriesVector), 43); // Finds element 43 and returns its value to iterator it. 
-																	   // Iterators should be initialized as auto.
+																	    // Iterators should be initialized as auto.
 		*it = 44;													   // Change value pointed by iterator.
 
 		//Lambdas std::find_if
@@ -186,7 +186,7 @@ template <typename T>  // Should use typename, class is for backwards compatibil
 
 
 		int numberOfOdds = std::count_if(begin(seriesVector), end(seriesVector), [](int i) {return i % 2 == 1; }); // Lambdas are useful for this - to encapsulate a 
-																													 // few lines of code that are passed to algorithms or asynchronous methods.
+																												  // few lines of code that are passed to algorithms or asynchronous methods.
 		auto it2 = std::find_if(begin(seriesVector), end(seriesVector), 
 			[](int i) { if ( i / 10 == 2) 
 							return i;
@@ -224,6 +224,4 @@ template <typename T>  // Should use typename, class is for backwards compatibil
 	return 0;
 
 }
-
-// things to see: jump inside classes, save settings, run from command line.
 
